@@ -1,49 +1,16 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
+import { CartProvider } from '@/components/cart/cart-provider'
+import { SiteLayout } from '@/components/layout/site-layout'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.app',
-  icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
-  },
+  title: { default: 'NOIR Urban Wears | Wear Your Identity', template: '%s | NOIR Urban Wears' },
+  description: 'Premium streetwear essentials in Thika, Kenya. Discover shoes, tees, outerwear and accessories from NOIR Urban Wears.',
+  generator: 'Next.js',
+  openGraph: { title: 'NOIR Urban Wears — Wear Your Identity', description: 'Streetwear essentials designed for those who express themselves without limits.', type: 'website' },
 }
-
-export const viewport: Viewport = {
-  colorScheme: 'light dark',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'white' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
-  ],
-}
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
-  return (
-    <html lang="en">
-      <body className="antialiased">
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
-      </body>
-    </html>
-  )
+export const viewport: Viewport = { colorScheme: 'light', themeColor: '#fafafa', width: 'device-width', initialScale: 1, userScalable: true }
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+ return <html lang="en" data-scroll-behavior="smooth"><body className="antialiased"><CartProvider><SiteLayout>{children}</SiteLayout></CartProvider>{process.env.NODE_ENV === 'production' && <Analytics />}</body></html>
 }

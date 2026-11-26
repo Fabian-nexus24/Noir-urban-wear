@@ -1,16 +1,16 @@
+import Link from "next/link"
+import { ArrowDown, ArrowUpRight, MapPin } from "lucide-react"
+import { categories, products } from "@/data/products"
+import { ProductGrid } from "@/components/products/product-grid"
+const categoryIds = ["Shoes", "T-Shirts", "Hoodies & Outerwear", "Accessories"]
 export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center font-sans">
-      <main className="flex w-full max-w-3xl flex-col items-center gap-8 px-6 py-16 text-center sm:items-start sm:text-left">
-        <div className="flex flex-col gap-4">
-          <h1 className="text-4xl font-bold tracking-tight">
-            NOIR Urban wears
-          </h1>
-          <p className="max-w-md text-lg text-muted-foreground">
-            To get started, send a prompt or modify this page directly.
-          </p>
-        </div>
-      </main>
-    </div>
-  );
+ const newArrivals = products.filter((item) => item.isNew).slice(0,4); const bestSellers = products.filter((item) => item.featured).slice(0,4)
+ return <div className="home-page"><section className="hero"><img className="hero-image" src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=2400&q=90" alt="Streetwear campaign: modern urban fashion"/><div className="hero-shade"/><div className="hero-content"><p className="eyebrow light-eyebrow">THIKA, KENYA · EST. FOR THE EVERYDAY</p><h1>WEAR YOUR<br/><span>IDENTITY.</span></h1><p className="hero-desc">Discover streetwear essentials designed for those who express themselves without limits.</p><div className="hero-actions"><Link className="button-light" href="/shop">SHOP COLLECTION <ArrowUpRight/></Link><Link className="hero-secondary" href="/shop?sort=newest">EXPLORE NEW ARRIVALS <ArrowDown/></Link></div></div><div className="hero-index"><span>01</span><span className="index-line"/> THE NOIR EDIT / 26</div><div className="hero-vertical">WEAR YOUR IDENTITY —</div></section><div className="ticker"><span>BUILT FOR THE CITY</span><i>✳</i><span>MADE FOR YOUR EVERYDAY</span><i>✳</i><span>THIKA TO EVERYWHERE</span><i>✳</i><span>BUILT FOR THE CITY</span></div>
+ <section className="section-shell"><div className="section-heading"><div><p className="eyebrow">FRESH FROM THE STUDIO</p><h2>NEW ARRIVALS</h2></div><Link className="text-link" href="/shop">VIEW ALL PIECES ↗</Link></div><ProductGrid products={newArrivals}/></section>
+ <section className="categories-section" id="categories"><div className="section-shell"><div className="section-heading"><div><p className="eyebrow">FIND YOUR NEXT GO-TO</p><h2>SHOP BY CATEGORY</h2></div><p className="section-aside">Pieces for every side of you.</p></div><div className="category-grid">{categories.map((category,index)=><Link key={category.name} href={`/shop?category=${encodeURIComponent(category.name)}`} className="category-card"><img src={category.image} alt={category.name} loading="lazy"/><span className="category-index">0{index+1}</span><div><small>{category.note}</small><h3>{category.name}</h3></div><span className="category-arrow"><ArrowUpRight/></span></Link>)}</div></div></section>
+ <section className="section-shell best-section"><div className="section-heading"><div><p className="eyebrow">THE COMMUNITY PICKS</p><h2>BEST SELLERS</h2></div><Link className="text-link" href="/shop">SHOP THE EDIT ↗</Link></div><ProductGrid products={bestSellers}/></section>
+ <section className="statement-banner"><img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=2400&q=90" alt="Model wearing modern streetwear" loading="lazy"/><div className="statement-overlay"/><div className="statement-copy"><p className="eyebrow light-eyebrow">NOIR IS A STATE OF MIND</p><h2>YOUR STYLE.<br/>YOUR STATEMENT.</h2><p>Stand out. Stay original. Make every outfit count.</p><Link className="button-light" href="/shop">SHOP NOW <ArrowUpRight/></Link></div></section>
+ {categoryIds.map((name,index)=>{const category = categories.find((item)=>item.name===name)!; const list = products.filter((item)=>item.category===name).slice(0,4); return <section className={`section-shell category-products category-products-${index}`} key={name}><div className="section-heading"><div><p className="eyebrow">THE NOIR ROTATION / 0{index+1}</p><h2>{name.toUpperCase()}</h2></div><Link className="text-link" href={`/shop?category=${encodeURIComponent(name)}`}>VIEW CATEGORY ↗</Link></div><ProductGrid products={list}/></section>})}
+ <section className="store-strip"><div className="store-icon"><MapPin/></div><div><p className="eyebrow">COME THROUGH</p><h2>FIND US IN THIKA.</h2><p>Uhuru Street, Thika Town, Kenya <span>·</span> Daily, 10:00 AM – 8:00 PM</p></div><a href="https://maps.google.com/?q=Uhuru+Street+Thika+Town+Kenya" target="_blank" rel="noreferrer" className="button-outline">GET DIRECTIONS <ArrowUpRight/></a></section>
+ </div>
 }
