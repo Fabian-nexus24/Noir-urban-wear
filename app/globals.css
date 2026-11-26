@@ -16,6 +16,7 @@
 .product-info{min-height:154px}
 .price-row{gap:10px;white-space:nowrap}
 .quick-add{margin-top:auto;min-height:36px}
+.quick-add.quick-add-added,.quick-add.quick-add-added:hover{background:#d6be71;color:#111;border-color:#d6be71}
 .unavailable-contact{display:flex;align-items:center;justify-content:center;gap:6px;min-height:31px;margin-top:5px;font-size:8px;font-weight:700;letter-spacing:.1em;color:#6f5a18}
 .unavailable-contact svg{width:12px;height:12px}
 .category-products{padding-top:50px;padding-bottom:18px}
